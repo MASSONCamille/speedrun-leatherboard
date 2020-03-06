@@ -19,10 +19,6 @@
     "test": "test/",
     "config": "config/"
   },
-  "engines": {
-    "node": "^10.0.0",
-    "yarn": ">= 0.18.0"
-  },
   "scripts": {
     "test": "yarn run compile && yarn run mocha",
     "dev": "ts-node-dev --no-notify src/",
