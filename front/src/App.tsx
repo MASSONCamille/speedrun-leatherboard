@@ -5,24 +5,9 @@ import { Nav, Navbar } from "react-bootstrap";
 import { NavLink, Route, Switch } from "react-router-dom";
 import Login from "./components/login";
 import { InputReference } from "./util-types";
+import Quest from "./components/quest";
 
 class App extends React.Component {
-  key = React.createRef<InputReference>();
-  email = React.createRef<InputReference>();
-  password = React.createRef<InputReference>();
-
-  @bind
-  onSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    axios
-      .post(`/authentication`, {
-        email: "",
-        password: "",
-        strategy: "local"
-      })
-      .then(() => alert("ok"))
-      .catch(err => console.error(err));
-  }
 
   render() {
     return (
@@ -35,16 +20,24 @@ class App extends React.Component {
               <NavLink to="/" className="nav-link" activeClassName="active">
                 Home
               </NavLink>
+              <NavLink to="/quest" className="nav-link" activeClassName="active">
+                Quest
+              </NavLink>
             </Nav>
+            <Nav>
             <NavLink to="/login" className="nav-link" activeClassName="active">
               Login
             </NavLink>
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
 
         <Switch>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/quest">
+            <Quest/>
           </Route>
           <Route path="/">home</Route>
         </Switch>

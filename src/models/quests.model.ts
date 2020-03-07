@@ -17,10 +17,6 @@ export class Quest extends Model {
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  public getWeapon!: BelongsToGetAssociationMixin<Weapon>;
-  public setWeapon!: BelongsToSetAssociationMixin<Weapon, number>;
-
-  public readonly weapon!: Weapon;
 }
 
 export default function(app: Application) {
@@ -44,7 +40,6 @@ export default function(app: Application) {
   quests.associate = function(models: any) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    Quest.belongsTo(Weapon);
   };
 
   return quests;

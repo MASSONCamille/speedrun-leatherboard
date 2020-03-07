@@ -5,19 +5,19 @@ import bind from "@chbrown/bind";
 import { Form, Button, Container } from "react-bootstrap";
 
 class Login extends React.Component {
-  email = React.createRef<InputReference>();
+  name = React.createRef<InputReference>();
   password = React.createRef<InputReference>();
 
   @bind
   onSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    const email = this.email.current.value;
+    const name = this.name.current.value;
     const password = this.password.current.value;
 
     axios
       .post(`/authentication`, {
-        email: email,
+        name: name,
         password: password,
         strategy: "local"
       })
@@ -42,7 +42,7 @@ class Login extends React.Component {
       <form onSubmit={this.onSubmit}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" ref={this.email}/>
+          <Form.Control type="text" placeholder="Enter email" ref={this.name}/>
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
           </Form.Text>

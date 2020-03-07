@@ -10,6 +10,7 @@ import {
 import { Application } from "../declarations";
 import { ModelsCollection } from "./model";
 import { Quest } from "./quests.model";
+import { Weapon } from "./weapons.model";
 
 export class Event extends Model {
   public id!: number;
@@ -21,8 +22,11 @@ export class Event extends Model {
 
   public getQuest!: BelongsToGetAssociationMixin<Quest>;
   public setQuest!: BelongsToSetAssociationMixin<Quest, number>;
+  public getWeapon!: BelongsToGetAssociationMixin<Weapon>;
+  public setWeapon!: BelongsToSetAssociationMixin<Weapon, number>;
 
   public readonly quest!: Quest;
+  public readonly weapon!: Weapon;
 }
 
 export default function(app: Application) {
@@ -51,6 +55,7 @@ export default function(app: Application) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
     Event.belongsTo(Quest);
+    Event.belongsTo(Weapon);
   };
 
   return events;
