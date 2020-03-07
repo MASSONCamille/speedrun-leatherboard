@@ -34,5 +34,31 @@ export default function(app: Application) {
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
 
+  weapons.populate = function() {
+    Promise.all(
+      [
+        "greatSword",
+        "longSword",
+        "swordAndShield",
+        "dualBlades",
+        "hammer",
+        "huntingHorn",
+        "lance",
+        "gunLance",
+        "switchAxe",
+        "chargeBlade",
+        "insectGlaive",
+        "lightBowgun",
+        "heavyBowgun",
+        "bow"
+      ].map(async wpn => {
+        const w: Weapon = await Weapon.create({ name: wpn });
+        console.log("+ weapon:", `${w.name}#${w.id}`);
+      })
+    ).catch(err => {
+      console.error("Error creating weapons", err);
+    });
+  };
+
   return weapons;
 }
