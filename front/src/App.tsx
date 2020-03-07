@@ -1,7 +1,9 @@
-import React from "react";
 import bind from "@chbrown/bind";
-import { Form, Button, Container } from "react-bootstrap";
 import axios from "axios";
+import React from "react";
+import { Nav, Navbar } from "react-bootstrap";
+import { NavLink, Route, Switch } from "react-router-dom";
+import Login from "./components/login";
 import { InputReference } from "./util-types";
 
 class App extends React.Component {
@@ -13,10 +15,10 @@ class App extends React.Component {
   onSubmit(event: React.FormEvent) {
     event.preventDefault();
     axios
-      .delete(`/users/${this.email.current.value}`, {
-        headers: {
-          Authorization: `Bearer ${this.key.current.value}`
-        }
+      .post(`/authentication`, {
+        email: "",
+        password: "",
+        strategy: "local"
       })
       .then(() => alert("ok"))
       .catch(err => console.error(err));
@@ -24,37 +26,29 @@ class App extends React.Component {
 
   render() {
     return (
-      <Container>
-        <form onSubmit={this.onSubmit}>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Key</Form.Label>
-            <Form.Control type="text" placeholder="Key" ref={this.key} />
-          </Form.Group>
+      <>
+        <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="#home">Speedrun Leatherboard</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <NavLink to="/" className="nav-link" activeClassName="active">
+                Home
+              </NavLink>
+            </Nav>
+            <NavLink to="/login" className="nav-link" activeClassName="active">
+              Login
+            </NavLink>
+          </Navbar.Collapse>
+        </Navbar>
 
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>ID</Form.Label>
-            <Form.Control type="text" placeholder="ID" ref={this.email} />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              ref={this.password}
-            />
-          </Form.Group>
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </form>
-      </Container>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/">home</Route>
+        </Switch>
+      </>
     );
   }
 }
