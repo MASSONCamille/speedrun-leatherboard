@@ -1,12 +1,19 @@
 // See http://docs.sequelizejs.com/en/latest/docs/models-definition/
 // for more of what you can do here.
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize, DataTypes, Model } from "sequelize";
 import { Application } from "../declarations";
 
+export class Weapon extends Model {
+  public id!: number;
+  public name!: string;
+
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
 export default function(app: Application) {
-  const sequelizeClient: Sequelize = app.get("sequelizeClient");
-  const weapons = sequelizeClient.define(
-    "weapons",
+  const sequelize: Sequelize = app.get("sequelizeClient");
+  Weapon.init(
     {
       name: {
         type: DataTypes.STRING,
@@ -14,16 +21,15 @@ export default function(app: Application) {
       }
     },
     {
-      hooks: {
-        beforeCount(options: any) {
-          options.raw = true;
-        }
-      }
+      sequelize,
+      tableName: "weapons"
     }
   );
 
+  const weapons: any = sequelize.models.Weapon;
+
   // eslint-disable-next-line no-unused-vars
-  (weapons as any).associate = function(models: any) {
+  weapons.associate = function(models: any) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
