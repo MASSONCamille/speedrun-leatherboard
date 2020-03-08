@@ -29,8 +29,11 @@ function Navbar() {
                     {connected ? (
                         <>
                             <NavDropdown title="Admin" id="basic-nav-dropdown" alignRight>
-                                <NavLink to="/quest-editor" className="dropdown-item">
-                                    Quest Editor
+                                <NavLink to="/admin/events" className="dropdown-item">
+                                    Évenements
+                                </NavLink>
+                                <NavLink to="/admin/quests" className="dropdown-item">
+                                    Quetes
                                 </NavLink>
                             </NavDropdown>
                             <BNavLink onClick={onLogout}>Logout</BNavLink>

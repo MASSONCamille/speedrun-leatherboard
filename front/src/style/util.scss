@@ -1,0 +1,9 @@
+.table-with-buttons {
+    position: relative;
+
+    .buttons-in-table {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+}
