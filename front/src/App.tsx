@@ -4,26 +4,18 @@ import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Admin from "./routes/admin";
 import Login from "./routes/login";
-import { userActions } from "./store/reducers/user";
+import { rootActions } from "./store/reducers";
+import UrlMapping from "./components/urlmapping";
 
 function App() {
     const dispatch = useDispatch();
 
-    dispatch(userActions.reLogin());
+    dispatch(rootActions.init());
 
     return (
         <>
             <Navbar />
-
-            <Switch>
-                <Route path="/login">
-                    <Login />
-                </Route>
-                <Route path="/admin">
-                    <Admin />
-                </Route>
-                <Route path="/">home</Route>
-            </Switch>
+            <UrlMapping />
         </>
     );
 }

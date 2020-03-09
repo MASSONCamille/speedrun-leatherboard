@@ -1,0 +1,17 @@
+{
+    "extends": ["tslint:latest", "tslint-react"],
+    "rules": {
+        "max-line-length": [false],
+        "semicolon": [true, "always"],
+        "class-name": true,
+        "variable-name": {
+            "options": ["ban-keywords", "check-format", "require-const-for-all-caps"]
+        },
+        "interface-name": [true, "never-prefix"],
+        "no-submodule-imports": false
+    },
+    "defaultSeverity": "error",
+    "jsRules": {
+        "max-line-length": [false]
+    }
+}

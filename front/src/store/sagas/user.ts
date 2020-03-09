@@ -20,19 +20,13 @@ function* tryLogin(action: SagaAction<LoginState>) {
                 token: loginResponse.accessToken,
                 updatedAt: new Date(loginResponse.user.updatedAt),
                 userId: loginResponse.user.id,
-                username: loginResponse.user.name,
-                loginFailed: false
+                username: loginResponse.user.name
             })
         );
     } catch (e) {
         console.error(e);
         yield put(
             userActions.loginFailure({
-                createdAt: undefined,
-                token: undefined,
-                updatedAt: undefined,
-                userId: -1,
-                username: undefined,
                 loginFailed: true
             })
         );
@@ -48,12 +42,12 @@ function* tryRelogin() {
                 token: loginResponse.accessToken,
                 updatedAt: new Date(loginResponse.user.updatedAt),
                 userId: loginResponse.user.id,
-                username: loginResponse.user.name,
-                loginFailed: false
+                username: loginResponse.user.name
             })
         );
     } catch (e) {
         console.error(e);
+        userActions.loginFailure();
     }
 }
 
@@ -63,16 +57,7 @@ function* logout() {
     } catch (e) {
         console.error(e);
     } finally {
-        yield put(
-            userActions.logoutSuccess({
-                createdAt: undefined,
-                token: undefined,
-                updatedAt: undefined,
-                userId: -1,
-                username: undefined,
-                loginFailed: false
-            })
-        );
+        yield put(userActions.logoutSuccess());
     }
 }
 
