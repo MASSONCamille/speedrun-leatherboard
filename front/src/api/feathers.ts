@@ -1,6 +1,6 @@
-import Feathers from "@feathersjs/client";
+import Feathers from "@feathersjs/feathers";
+import auth from "@feathersjs/authentication-client";
 import rest from "@feathersjs/rest-client";
-import { Application } from "@feathersjs/express";
 import { FeathersType } from "./types";
 
 const feathers = Feathers();
@@ -8,6 +8,6 @@ const feathers = Feathers();
 const restClient = rest();
 
 feathers.configure(restClient.fetch(window.fetch));
-feathers.configure(Feathers.authentication());
+feathers.configure(auth({ storageKey: "speedrun-auth" }));
 
-export default feathers as FeathersType & Application<any>;
+export default feathers as FeathersType & Feathers.Application<any>;

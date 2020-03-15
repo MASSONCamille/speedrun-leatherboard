@@ -1,22 +1,23 @@
+import { ThemeProvider } from "@material-ui/core";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
-import Navbar from "./components/navbar";
-import Admin from "./routes/admin";
-import Login from "./routes/login";
-import { rootActions } from "./store/reducers";
-import UrlMapping from "./components/urlmapping";
+import Navbar from "./components/Navbar/Navbar";
+import UrlMapping from "./components/UrlMapping/UrlMapping";
+import AppSelector from "./rxjs/app.selector";
+import appStore from "./rxjs/app.store";
+import themes from "./themes/themes";
+import { useLocation } from "react-router";
 
 function App() {
-    const dispatch = useDispatch();
-
-    dispatch(rootActions.init());
+    const { pathname } = useLocation();
 
     return (
-        <>
-            <Navbar />
-            <UrlMapping />
-        </>
+        <ThemeProvider theme={themes.blue}>
+            <>
+                {/* {pathname.startsWith("/admin") || <Navbar />} */}
+                <Navbar />
+                <UrlMapping />
+            </>
+        </ThemeProvider>
     );
 }
 
