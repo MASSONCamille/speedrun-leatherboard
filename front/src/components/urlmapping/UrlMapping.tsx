@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch } from "react-router-dom";
 import Admin from "../../routes/admin/admin";
 import Login from "../../routes/login/login";
 import UserSelector from "../../rxjs/user.selector";
@@ -22,9 +22,7 @@ function UrlMapping() {
             <Route path="/login">
                 <Login />
             </Route>
-            <Route path="/admin">
-                <Admin />
-            </Route>
+            <Admin path="/admin" />
             <Route path="/">home</Route>
         </Switch>
     );

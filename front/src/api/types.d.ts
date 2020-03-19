@@ -36,10 +36,17 @@ export interface ServiceGetResult {
     [key: string]: any;
 }
 
+interface FindResult<T> {
+    total: number;
+    limit: number;
+    skip: number;
+    data: T[];
+}
+
 export type ServiceType = {
-    find: (params?: { query: QueryType }) => Promise<GetListResult>;
+    find: <T = {}>(params?: { query: QueryType }) => Promise<FindResult<T>>;
     create: (data: any) => Promise<CreateResult>;
-    get: <T = ServiceGetResult>(id: number, params: any) => Promise<T>;
+    get: <T = ServiceGetResult>(id: number, params?: any) => Promise<T>;
     update: (id: number, data: any) => Promise<UpdateResult>;
     patch: (id: number, data: any) => Promise<UpdateResult>;
     remove: <T = DeleteResult>(id?: number, params?: { query: QueryType }) => Promise<T>;

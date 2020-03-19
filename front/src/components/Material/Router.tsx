@@ -7,7 +7,8 @@ import { NavLink } from "react-router-dom";
 
 const useStyle = makeStyles(theme => ({
     active: {
-        background: theme.palette.primary.dark
+        background: "rgba(0,0,0,0.1)",
+        boxShadow: "inset 0 0 5px rgba(0,0,0,0.2)"
     }
 }));
 
@@ -28,21 +29,30 @@ export const RouterButton = React.forwardRef<HTMLButtonElement, DefaultComponent
     const classes = useStyle();
 
     return (
-        <Button {...props} ref={ref} component={NavLink as any} activeClassName={cx(classes.active, activeClassName || null)}>
+        <Button
+            {...props}
+            ref={ref}
+            component={NavLink as any}
+            activeClassName={cx(classes.active, activeClassName || null)}
+        >
             {children}
         </Button>
     );
 });
 
-export const RouterIconButton = React.forwardRef<HTMLButtonElement, DefaultComponentProps<IconButtonTypeMap<Link>>>(function(
-    { children, activeClassName, ...props },
-    ref
-) {
-    const classes = useStyle();
+export const RouterIconButton = React.forwardRef<HTMLButtonElement, DefaultComponentProps<IconButtonTypeMap<Link>>>(
+    function({ children, activeClassName, ...props }, ref) {
+        const classes = useStyle();
 
-    return (
-        <IconButton {...props} ref={ref} component={NavLink as any} activeClassName={cx(classes.active, activeClassName || null)}>
-            {children}
-        </IconButton>
-    );
-});
+        return (
+            <IconButton
+                {...props}
+                ref={ref}
+                component={NavLink as any}
+                activeClassName={cx(classes.active, activeClassName || null)}
+            >
+                {children}
+            </IconButton>
+        );
+    }
+);

@@ -1,4 +1,4 @@
-import { AppBar, Button, Toolbar, Tooltip, Typography } from "@material-ui/core";
+import { AppBar, Button, Toolbar, Tooltip, Typography, makeStyles } from "@material-ui/core";
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
@@ -8,38 +8,49 @@ import { RouterButton, RouterIconButton } from "../Material/Router";
 import Spacer from "../Material/Spacer";
 import { Link } from "react-router-dom";
 
+const useStyle = makeStyles(theme => ({
+    bar: {
+        zIndex: theme.zIndex.drawer + 1,
+        marginBottom: theme.spacing(3)
+    }
+}));
+
 function Navbar() {
     const user = new UserSelector(userStore.useState());
+    const classes = useStyle();
 
     const onLogout = function() {
         userStore.logout();
     };
 
     return (
-        <AppBar position="static">
-            <Toolbar variant="dense">
-                <Button component={Link} to="/">
-                    <Typography variant="h6">Home</Typography>
-                </Button>
+        <>
+            <AppBar position="fixed" className={classes.bar}>
+                <Toolbar>
+                    <Button component={Link} to="/">
+                        <Typography variant="h6">Home</Typography>
+                    </Button>
 
-                <Spacer />
+                    <Spacer />
 
-                {user.isOnline() ? (
-                    <>
-                        <RouterButton to="/admin">Admin</RouterButton>
-                        <Button onClick={onLogout} endIcon={<FiLogOut />}>
-                            Logout
-                        </Button>
-                    </>
-                ) : (
-                    <Tooltip title="Login">
-                        <RouterIconButton to="/login">
-                            <FaUserCircle />
-                        </RouterIconButton>
-                    </Tooltip>
-                )}
-            </Toolbar>
-        </AppBar>
+                    {user.isOnline() ? (
+                        <>
+                            <RouterButton to="/admin">Admin</RouterButton>
+                            <Button onClick={onLogout} endIcon={<FiLogOut />}>
+                                Logout
+                            </Button>
+                        </>
+                    ) : (
+                        <Tooltip title="Login">
+                            <RouterIconButton to="/login">
+                                <FaUserCircle />
+                            </RouterIconButton>
+                        </Tooltip>
+                    )}
+                </Toolbar>
+            </AppBar>
+            {/* <div className={classes.toolbar} /> */}
+        </>
     );
 }
 

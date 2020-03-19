@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, useLocation } from "react-router";
+import { Redirect, useLocation } from "react-router-dom";
 import AppSelector from "../../rxjs/app.selector";
 import appStore from "../../rxjs/app.store";
 
@@ -15,7 +15,8 @@ const useRouteValidator = <V extends any[]>(
     if (!app.isUp()) return null;
 
     // Fn
-    const getTestKeys = (pathname: string) => Object.keys(routeRules).filter(it => new RegExp(`^${it}$`).test(pathname));
+    const getTestKeys = (pathname: string) =>
+        Object.keys(routeRules).filter(it => new RegExp(`^${it}$`).test(pathname));
     console.groupCollapsed("Routing", location.pathname);
     const toTest = getTestKeys(location.pathname);
     console.log("to test", toTest);

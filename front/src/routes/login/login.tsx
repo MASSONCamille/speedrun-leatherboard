@@ -1,8 +1,18 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Container, makeStyles, TextField, Typography } from "@material-ui/core";
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Container,
+    makeStyles,
+    TextField,
+    Typography
+} from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React, { useEffect, useRef } from "react";
 // import { Button, Container, Form } from "react-bootstrap";
-// import { useHistory } from "react-router";
+// import { useHistory } from "react-router-dom";
 import Spacer from "../../components/Material/Spacer";
 import UserSelector from "../../rxjs/user.selector";
 import userStore from "../../rxjs/user.store";
@@ -45,6 +55,7 @@ function Login() {
 
     return (
         <Container maxWidth="sm">
+            <Spacer toolbar margin />
             <form onSubmit={onSubmit}>
                 <Card>
                     <CardMedia image={loginImage} title="Monster Hunter" className={classes.media} />
@@ -52,7 +63,9 @@ function Login() {
                         <Typography gutterBottom variant="h5" component="h2">
                             Login
                         </Typography>
-                        {user.hasLoginError() && <Alert severity="error">Nom d'utilisateur ou Mot de passe invalide !</Alert>}
+                        {user.hasLoginError() && (
+                            <Alert severity="error">Nom d'utilisateur ou Mot de passe invalide !</Alert>
+                        )}
                         <TextField label="Nom d'utilisateur" autoFocus fullWidth inputRef={nameRef} />
                         <TextField label="Mot de passe" fullWidth type="password" inputRef={passwordRef} />
                     </CardContent>

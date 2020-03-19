@@ -2,15 +2,13 @@ import { Store } from "rxjs-class-react-hook";
 import feathers from "../api/feathers";
 import { AuthenticateResponse } from "../api/types";
 import { parseDbDates } from "./util/dbDates";
+import { User as UM } from "../../../src/models/users.model";
+import { Model } from "sequelize/types";
 
+export type User = Omit<UM, "password" | keyof Model>;
 export interface UserState {
     accessToken?: string;
-    user?: {
-        id: number;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-    };
+    user?: User;
     loginFailed: boolean;
 }
 
